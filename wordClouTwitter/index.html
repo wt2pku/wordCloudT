@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Cloud for Twitters</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Word Cloud for Twitters">
+  <meta name="author" content="">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Word Cloud for Twitters</h1>
+    <h2>A shiny apps</h2>
+    <p><br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <hr>
+
+<h2>Word Cloud for Twitters</h2>
+
+<ol>
+<li>Get most used words in 1000 Twitters for a specific Keyword</li>
+<li>Present the word cloud for the 1000 Twitters</li>
+<li>Manipulate the word cloud using sidebar.
+Link: <a href="http://wt2pku.shinyapps.io/wordCloudTwitter">Word Cloud for Twitters</a></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Setting a Keyword</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Set a keyword in the textInput.</p>
+
+<pre><code class="r">library(shiny)
+textInput(&quot;selection&quot;, &quot;Input a keyword, then hit &#39;Change&#39; Button:&quot;,  &quot;dataScience&quot;)
+</code></pre>
+
+<p>Search through Twitter API first.</p>
+
+<pre><code class="r">setup_twitter_oauth(api_key,api_secret,access_token,access_token_secret)
+# Search the tweets using the keyword
+tweets &lt;- searchTwitter(keyword, 1000, lang=&quot;en&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Get the Word Cloud</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Here is the process for getting Twitters for keyword <strong>dataScience</strong></p>
+
+<pre><code class="r">  wordcloud_rep &lt;- repeatable(wordcloud);v &lt;- getTermMatrix(&quot;dataScience&quot;)
+  wordcloud_rep(names(v), v, scale=c(4,0.5), min.freq = 5, max.words=100, colors=brewer.pal(8, &quot;Dark2&quot;))
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Manipulate the word cloud</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>You can also change the Minimum Frequency of the word and Maximum Number of Words in word cloud using the sidebar</p>
+
+<pre><code class="r">sliderInput(&quot;freq&quot;, &quot;Minimum Frequency:&quot;, min = 1,  max = 50, value = 5),
+sliderInput(&quot;max&quot;,  &quot;Maximum Number of Words:&quot;,  min = 1,  max = 300,  value = 50)
+</code></pre>
+
+<h2>Time to experience <a href="http://wt2pku.shinyapps.io/wordCloudTwitter">Word Cloud for Twitters</a>!</h2>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title=''>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Setting a Keyword'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Get the Word Cloud'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Manipulate the word cloud'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
